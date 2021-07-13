@@ -52,7 +52,7 @@
 | municipality  | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
-| phon_number   | integer    | null: false                    |
+| phon_number   | string     | null: false                    |
 | purchase      | references | null: false, foreign_key: true |
 
 ### Association
