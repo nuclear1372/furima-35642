@@ -1,24 +1,58 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
+| Columns  | Type   | Options     |
+| -------- | ------ | ----------- |
+| name     | string | null: false |
+| email    | string | null: false |
+| password | string | null: false |
 
-Things you may want to cover:
+### Association
+- has_many :items
+- has_many :purchases
 
-* Ruby version
+## itemsテーブル
+| Columns         | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| name            | string     | null: false                    |
+| description     | text       | null: false                    |
+| category        | string     | null: false                    |
+| status          | text       | null: false                    |
+| delivery_charge | string     | null: false                    |
+| shipping_area   | string     | null: false                    |
+| price           | integer    | null: false                    |
+| days_to_ship    | string     | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
-* System dependencies
+### Association
+- belongs_to :user
+- has_one :purchase
 
-* Configuration
+## purchasesテーブル
+| Columns          | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| card_number      | integer    | null: false                    |
+| expiration_month | integer    | null: false                    |
+| expiration_date  | integer    | null: false                    |
+| csv              | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
+| item             | references | null: false, foreign_key: true |
 
-* Database creation
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one :shipping_address
 
-* Database initialization
+## shipping_addressesテーブル
+| Columns       | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefectures   | string     | null: false                    |
+| municipality  | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     |                                |
+| phon_number   | integer    | null: false                    |
+| purchase      | references | null: false, foreign_key: true |
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Association
+- belongs_to :purchase
