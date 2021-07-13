@@ -38,10 +38,6 @@
 ## purchasesテーブル
 | Columns          | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| card_number      | integer    | null: false                    |
-| expiration_month | integer    | null: false                    |
-| expiration_date  | integer    | null: false                    |
-| csv              | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 | item             | references | null: false, foreign_key: true |
 
