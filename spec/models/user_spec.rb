@@ -22,6 +22,11 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
+      it 'emailに＠が含まれていない' do
+        @user.email = 'test.jp'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it '既に登録されているemailと重複している' do
         another_user = FactoryBot.build(:user)
         another_user.save
@@ -39,8 +44,18 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
-      it 'passwordが半角英数字混合ではない' do
+      it 'passwordが数字のみでは登録できない' do
         @user.password = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+      it 'passwordが英字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+      it 'passwordが全角だと登録できない' do
+        @user.password = 'ああああああ'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
@@ -80,6 +95,11 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name kana is invalid')
       end
+      it 'last_namr_kanaが英字のみでは登録できない' do
+        @user.last_name_kana = "wwwwww"
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name kana is invalid')
+      end
       it 'first_name_kanaが存在しない' do
         @user.first_name_kana = ''
         @user.valid?
@@ -87,6 +107,11 @@ RSpec.describe User, type: :model do
       end
       it 'first_name_kanaが全角カタカナではない' do
         @user.first_name_kana = 'たろう'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name kana is invalid')
+      end
+      it 'first_name_kanaが英字のみでは登録できない' do
+        @user.first_name_kana = "wwwwww"
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
