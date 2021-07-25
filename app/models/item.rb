@@ -22,5 +22,6 @@ class Item < ApplicationRecord
     validates :name
     validates :description
     validates :price
+    validates :image
   end
 end
