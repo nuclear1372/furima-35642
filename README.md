@@ -33,6 +33,13 @@
 - belongs_to :user
 - has_one :purchase
 
+#### extend ActiveHash::Associations::ActiveRecordExtensions
+- belongs_to :prefecture
+- belongs_to :status
+- belongs_to :category
+- belongs_to :days_to_ship
+- belongs_to :delivery_charge
+
 ## purchasesテーブル
 | Columns          | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
@@ -57,3 +64,5 @@
 
 ### Association
 - belongs_to :purchase
+#### extend ActiveHash::Associations::ActiveRecordExtensions
+- belongs_to :prefecture
