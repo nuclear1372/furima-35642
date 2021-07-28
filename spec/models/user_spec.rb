@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
       it 'emailに＠が含まれていない' do
         @user.email = 'test.jp'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it '既に登録されているemailと重複している' do
         another_user = FactoryBot.build(:user)
@@ -96,7 +96,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Last name kana is invalid')
       end
       it 'last_namr_kanaが英字のみでは登録できない' do
-        @user.last_name_kana = "wwwwww"
+        @user.last_name_kana = 'wwwwww'
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name kana is invalid')
       end
@@ -111,7 +111,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
       it 'first_name_kanaが英字のみでは登録できない' do
-        @user.first_name_kana = "wwwwww"
+        @user.first_name_kana = 'wwwwww'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
