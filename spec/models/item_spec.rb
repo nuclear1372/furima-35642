@@ -43,6 +43,21 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
+      it 'priceが全角では保存できない' do
+        @item.price = "あああああああ"
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it 'priceが英字では保存できない' do
+        @item.price = 'aaaaaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it 'priceが英数字混合では保存できない' do
+        @item.price = 'a1d1ee1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
       it 'category_idが空では保存できない' do
         @item.category_id = nil
         @item.valid?
