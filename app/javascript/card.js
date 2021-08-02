@@ -7,10 +7,10 @@ const pay = () => {
     const formResult = document.getElementById("charge-form");
     const formData = new FormData(formResult);
     const card = {
-      number: formData.get("purchase[order_number]"),
-      cvc: formData.get("purchase[order_cvc]"),
-      exp_month: formData.get("purchase[order_exp_month]"),
-      exp_year: `20${formData.get("purchase[order_exp_year]")}`,
+      number: formData.get("purchase_shipping_address[order_number]"),
+      cvc: formData.get("purchase_shipping_address[order_cvc]"),
+      exp_month: formData.get("purchase_shipping_address[order_exp_month]"),
+      exp_year: `20${formData.get("purchase_shipping_address[order_exp_year]")}`,
     };
     
     Payjp.createToken(card, (status, response) => {
