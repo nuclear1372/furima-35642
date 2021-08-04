@@ -39,6 +39,13 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def soldout_item(item_id)
+    if  Purchase.find_by(item_id: item_id)
+      return true
+    end
+  end
+  helper_method :soldout_item
+
   private
 
   def item_params
