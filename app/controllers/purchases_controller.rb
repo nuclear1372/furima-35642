@@ -47,6 +47,8 @@ class PurchasesController < ApplicationController
     set_item
     if current_user.id == @item.user_id
       redirect_to root_path
+    elsif Purchase.find_by(item_id: @item.id)
+      redirect_to root_path
     end
   end
 end
