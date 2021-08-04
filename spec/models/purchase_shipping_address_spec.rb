@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe PurchaseShippingAddress, type: :model do
   describe '商品購入機能' do
     before do
-      @purchase_shipping_address = FactoryBot.build(:purchase_shipping_address)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @purchase_shipping_address = FactoryBot.build(:purchase_shipping_address, user_id: @user.id, item_id: @item.id)
+      sleep 0.1
     end
     context '購入できるとき' do
       it '入力された情報が全て正しければ購入できる' do
@@ -73,6 +76,21 @@ RSpec.describe PurchaseShippingAddress, type: :model do
       end
       it 'phone_numberが数字以外は保存できない' do
         @purchase_shipping_address.phone_number = 'aaaaaaaaaaa'
+        @purchase_shipping_address.valid?
+        expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
+      end
+      it '半角英数字金剛だと保存できない' do
+        @purchase_shipping_address.phone_number = 'q1q1q1q1q1q'
+        @purchase_shipping_address.valid?
+        expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
+      end
+      it '全角数字だと保存できない' do
+        @purchase_shipping_address.phone_number = '０９０１２３４５６７８'
+        @purchase_shipping_address.valid?
+        expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
+      end
+      it '12桁以上だと保存できない' do
+        @purchase_shipping_address.phone_number = '123456789012'
         @purchase_shipping_address.valid?
         expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
       end

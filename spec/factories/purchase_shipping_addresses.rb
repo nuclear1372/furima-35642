@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :purchase_shipping_address do
     token {"tok_" + Faker::Lorem.characters(number: 20)}
-    user_id {1}
-    item_id {1}
     postal_code {"123-4567"}
     prefecture_id {1}
     city {"近江八幡市"}
