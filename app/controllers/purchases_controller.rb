@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
-  before_action :move_to_index, only:[:index]
+  before_action :move_to_index, only:[:index, :create]
 
   def index
     @purchase_shipping_address = PurchaseShippingAddress.new
@@ -20,10 +20,6 @@ class PurchasesController < ApplicationController
 
   private
   
-  def purchase_params
-    params.permit(:item_id).merge(user_id: current_user.id, token: params[:token])
-  end
-
   def shipping_address_params
     params.require(:purchase_shipping_address).permit(
       :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number
