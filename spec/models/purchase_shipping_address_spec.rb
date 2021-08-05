@@ -79,7 +79,7 @@ RSpec.describe PurchaseShippingAddress, type: :model do
         @purchase_shipping_address.valid?
         expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
-      it '半角英数字金剛だと保存できない' do
+      it '半角英数字混合だと保存できない' do
         @purchase_shipping_address.phone_number = 'q1q1q1q1q1q'
         @purchase_shipping_address.valid?
         expect(@purchase_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only number')
